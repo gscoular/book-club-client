@@ -1,1 +1,12 @@
-<p>book-detail works!</p>
+<mat-card>
+    <mat-card-title>
+        {{ book.title }} - {{ book.author }}
+    </mat-card-title>
+    <mat-card-subtitle>
+        Selected by Grant
+    </mat-card-subtitle>
+    <mat-card-content>
+        <img src="{{ book.imageUrl }}">
+        {{ book.description }}
+    </mat-card-content>
+</mat-card>
