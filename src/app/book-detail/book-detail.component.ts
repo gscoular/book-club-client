@@ -1,4 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { BookService } from '../book.service';
 import { Book } from './book';
 
 @Component({
@@ -7,10 +9,10 @@ import { Book } from './book';
   styleUrls: ['./book-detail.component.scss']
 })
 export class BookDetailComponent implements OnInit {
-  @Input() book: Book
-  constructor() { }
+  book$: Observable<Book>;
+  constructor(private readonly service: BookService) { }
 
   ngOnInit(): void {
+    this.book$ = this.service.get("bookId")
   }
-
 }

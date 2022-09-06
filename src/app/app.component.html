@@ -1,18 +1,16 @@
 <mat-toolbar>
-	<button mat-icon-button>
+	<button mat-icon-button (click)="sidenav.toggle()">
 		<mat-icon>menu</mat-icon>
 	</button>
-	<span>Book Clubs</span>
+	<span>Book Club</span>
 </mat-toolbar>
-
-<mat-drawer-container>
-	<mat-drawer mode="side" opened>
+<mat-sidenav-container>
+	<mat-sidenav #sidenav mode="side" opened>
 		Sidenav content
-	</mat-drawer>
-	<mat-drawer-content>
-		Sidenave main content
-	</mat-drawer-content>
-</mat-drawer-container>
-<div class="page">
-	<router-outlet></router-outlet>
-</div>
+	</mat-sidenav>
+	<mat-sidenav-content>
+		<div class="page">
+			<router-outlet></router-outlet>
+		</div>
+	</mat-sidenav-content>
+</mat-sidenav-container>
