@@ -1,17 +1,95 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+class Page extends React.Component{
+	constructor() {
+		this.props.title = 'Books'
+	}
+	render() {
+		<Box>
+			<AppBar>
+				<Typography>{ title }</Typography>
+			</AppBar>
+		</Box>
+	}
+}
+
+class BookInfo extends React.Component{	
+
+	render(props) {
+		return (
+			<div className="book-info">
+				<div>Hello world</div>
+				<h1 class="title">{this.props.book.title}</h1>
+				<div class="author">{this.props.book.author}</div>
+				<div class="description">
+					{this.props.book.description}	
+				</div>
+			</div>
+		);
+	}
+	
+}
+
+
+class BookList extends React.Component{
+	constructor() {
+		super();
+		this.bookService = new BookService();
+	}
+
+	renderBook(b) {	
+		return (
+			<BookInfo book={b}> </BookInfo>
+		)
+	}
+	render() {
+		const res = this.bookService.search('', '', 10);
+		const books = res.data;
+		const rows = [];
+		for (const b of books) {
+			rows.push(this.renderBook(b));
+
+		}
+		return (
+			<div>
+				{ rows }
+			</div>
+		)
+	}
+}
+
+class Book {
+	title: string;
+	author: string;
+	description: string;
+}
+
+class BookService {
+	search(term, cursor, limit=0) {
+		return {
+			data: [
+				{
+					title: "The Great Gatsby",
+					author: "F. Scott Fitzgerald",
+					description: "Some people that are rich have a laugh"
+				},
+				{
+					title: "Cat's Cradle",
+					author: "Vonnegut, Kurt",
+					description: "See the cat? See the cradle?"
+				}
+			],
+			cursor: ""
+		}
+	}
+}
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<Page></Page>);
+
