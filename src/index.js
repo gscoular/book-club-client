@@ -4,18 +4,31 @@ import './index.css';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-
+import Toolbar from '@mui/material/Toolbar';
 
 class Page extends React.Component{
-	constructor() {
-		this.props.title = 'Books'
+	constructor(props) {
+		super(props);
+		this.state = {title: 'Books'}
 	}
 	render() {
-		<Box>
-			<AppBar>
-				<Typography>{ title }</Typography>
-			</AppBar>
-		</Box>
+		return (
+			<Box>
+				<Box>
+					<AppBar color="primary"> 
+						<Toolbar>
+							<Typography>{ this.state.title }</Typography>
+						</Toolbar>
+					</AppBar>
+				</Box>
+				<Box>
+					<Toolbar />
+					<BookList></BookList>i
+				</Box>
+			</Box>
+
+
+		)
 	}
 }
 
