@@ -42,9 +42,9 @@ class BookInfo extends React.Component{
 		return (
 			<Card variant="outlined" sx={{ maxWidth: 600 }}>
 				<CardContent>
-					<Typography>{this.props.book.title} </Typography>
-					<Typography>{this.props.book.author}</Typography>
-					<Typography>{this.props.book.description}</Typography>
+					<Typography class="title">{this.props.book.title} </Typography>
+					<Typography class="author">{this.props.book.author}</Typography>
+					<Typography class="description">{this.props.book.description}</Typography>
 				</CardContent>
 				<CardActions>
 					<Button size="small">Learn More</Button>
