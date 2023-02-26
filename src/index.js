@@ -5,6 +5,10 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Toolbar from '@mui/material/Toolbar';
+import CardContent from '@mui/material/CardContent';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import Button from '@mui/material/Button';
 
 class Page extends React.Component{
 	constructor(props) {
@@ -36,14 +40,17 @@ class BookInfo extends React.Component{
 
 	render(props) {
 		return (
-			<div className="book-info">
-				<div>Hello world</div>
-				<h1 class="title">{this.props.book.title}</h1>
-				<div class="author">{this.props.book.author}</div>
-				<div class="description">
-					{this.props.book.description}	
-				</div>
-			</div>
+			<Card variant="outlined" sx={{ maxWidth: 600 }}>
+				<CardContent>
+					<Typography>{this.props.book.title} </Typography>
+					<Typography>{this.props.book.author}</Typography>
+					<Typography>{this.props.book.description}</Typography>
+				</CardContent>
+				<CardActions>
+					<Button size="small">Learn More</Button>
+				</CardActions>
+			</Card>
+
 		);
 	}
 	
