@@ -10,6 +10,9 @@ import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import Button from '@mui/material/Button';
 
+import { initializeApp } from "firebase/app";
+import firebaseConfig from "./firebase";
+
 class Page extends React.Component{
 	constructor(props) {
 		super(props);
@@ -27,7 +30,7 @@ class Page extends React.Component{
 				</Box>
 				<Box>
 					<Toolbar />
-					<BookList></BookList>i
+					<BookList></BookList>
 				</Box>
 			</Box>
 
@@ -109,6 +112,9 @@ class BookService {
 		}
 	}
 }
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(<Page></Page>);
