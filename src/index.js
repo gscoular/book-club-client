@@ -9,9 +9,15 @@ import CardContent from '@mui/material/CardContent';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogActions from '@mui/material/DialogActions';
+import DialogTitle from '@mui/material/DialogTitle';
+import TextField from '@mui/material/TextField';
 
 import { initializeApp } from "firebase/app";
-import firebaseConfig from "./firebase";
+import { firebaseConfig } from "./firebase";
 
 class Page extends React.Component{
 	constructor(props) {
@@ -30,6 +36,7 @@ class Page extends React.Component{
 				</Box>
 				<Box>
 					<Toolbar />
+					<AddBookButton></AddBookButton>
 					<BookList></BookList>
 				</Box>
 			</Box>
@@ -82,6 +89,71 @@ class BookList extends React.Component{
 		return (
 			<div>
 				{ rows }
+			</div>
+		)
+	}
+}
+
+const modalstyle = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+};
+
+class AddBookButton extends React.Component{
+	constructor(props) {
+		super(props)
+		this.state={
+			open:false
+		}
+	}
+	handleOpen() {
+		this.setState({
+			open: true
+		})	
+	}
+	handleClose() {
+		this.setState({
+			open: false
+		})	
+	}
+	handleClick(e) {
+		this.handleOpen()
+	}
+
+	render() {
+		return (
+			<div>
+				<Button size="small" onClick={(e) => this.handleClick(e)}>Add Book</Button>	
+				<Dialog open={this.state.open}> 
+					<DialogTitle>Add Book</DialogTitle>
+					<DialogContent>
+						<DialogContentText>
+							Add books here!
+						</DialogContentText>
+						<TextField
+							autofocus
+							label="Title"
+							margin="dense"
+							id="title"
+							fullWidth
+							variant="standard"
+						>
+
+						</TextField>
+					</DialogContent>
+					<DialogActions>
+						<Button onClick={()=>this.handleClose()}>Add</Button>
+						<Button onClick={()=>this.handleClose()}>Cancel</Button>
+					</DialogActions>
+					
+				</Dialog>
 			</div>
 		)
 	}
