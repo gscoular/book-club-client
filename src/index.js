@@ -23,6 +23,10 @@ class Page extends React.Component{
 	constructor(props) {
 		super(props);
 		this.state = {title: 'Books'}
+		this.addBook = this.addBook.bind(this);
+	}
+	addBook(e) {
+		console.log(e)
 	}
 	render() {
 		return (
@@ -36,7 +40,7 @@ class Page extends React.Component{
 				</Box>
 				<Box>
 					<Toolbar />
-					<AddBookButton></AddBookButton>
+					<AddBookButton addBook={ this.addBook }></AddBookButton>
 					<BookList></BookList>
 				</Box>
 			</Box>
@@ -110,7 +114,10 @@ class AddBookButton extends React.Component{
 	constructor(props) {
 		super(props)
 		this.state={
-			open:false
+			open:false,
+			title: '',
+			author: '',
+			description: '',
 		}
 	}
 	handleOpen() {
@@ -127,6 +134,29 @@ class AddBookButton extends React.Component{
 		this.handleOpen()
 	}
 
+	handleTitleChange(e) {
+		this.setState({
+			title: e.target.value
+		})
+	}
+	handleAuthorChange(e) {
+		this.setState({
+			author: e.target.value
+		})
+	}
+	handleDescriptionChange(e) {
+		this.setState({
+			description: e.target.value
+		})
+	}
+	addBook() {
+		const book = new Book()
+		book.title = this.state.title;
+		book.author = this.state.author;
+		book.description = this.state.description
+		this.props.addBook(book);
+		this.handleClose();
+	}
 	render() {
 		return (
 			<div>
@@ -138,18 +168,43 @@ class AddBookButton extends React.Component{
 							Add books here!
 						</DialogContentText>
 						<TextField
+							required
+							onChange={(e)=>this.handleTitleChange(e)}
 							autofocus
 							label="Title"
 							margin="dense"
 							id="title"
 							fullWidth
 							variant="standard"
-						>
+						></TextField>
 
+						<TextField
+							required
+							onChange={(e)=>this.handleAuthorChange(e)}
+							autofocus
+							label="Author"
+							margin="dense"
+							id="author"
+							fullWidth
+							variant="standard"
+						></TextField>
+						<TextField
+							required
+							onChange={(e)=>this.handleDescriptionChange(e)}
+							autofocus
+							label="description"
+							margin="dense"
+							id="description"
+							fullWidth
+							variant="standard"
+						>
 						</TextField>
+					<div>{this.state.title}</div>
+					<div>{this.state.author}</div>
+					<div>{this.state.description}</div>
 					</DialogContent>
 					<DialogActions>
-						<Button onClick={()=>this.handleClose()}>Add</Button>
+						<Button onClick={()=>this.addBook()}>Add</Button>
 						<Button onClick={()=>this.handleClose()}>Cancel</Button>
 					</DialogActions>
 					
