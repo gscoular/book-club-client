@@ -23,10 +23,6 @@ class Page extends React.Component{
 	constructor(props) {
 		super(props);
 		this.state = {title: 'Books'}
-		this.addBook = this.addBook.bind(this);
-	}
-	addBook(e) {
-		console.log(e)
 	}
 	render() {
 		return (
@@ -40,7 +36,6 @@ class Page extends React.Component{
 				</Box>
 				<Box>
 					<Toolbar />
-					<AddBookButton addBook={ this.addBook }></AddBookButton>
 					<BookList></BookList>
 				</Box>
 			</Box>
@@ -75,6 +70,11 @@ class BookList extends React.Component{
 	constructor() {
 		super();
 		this.bookService = new BookService();
+		this.addBook = this.addBook.bind(this)
+	}
+
+	addBook(b) {
+		this.bookService.addBook(b);
 	}
 
 	renderBook(b) {	
@@ -91,8 +91,11 @@ class BookList extends React.Component{
 
 		}
 		return (
-			<div>
-				{ rows }
+			<div>	
+				<AddBookButton addBook={ this.addBook }></AddBookButton>
+				<div>
+					{ rows }
+				</div>
 			</div>
 		)
 	}
@@ -221,20 +224,28 @@ class Book {
 }
 
 class BookService {
+	books = [];
+
+	constructor() {
+		this.books =  [
+			{
+				title: "The Great Gatsby",
+				author: "F. Scott Fitzgerald",
+				description: "Some people that are rich have a laugh"
+			},
+			{
+				title: "Cat's Cradle",
+				author: "Vonnegut, Kurt",
+				description: "See the cat? See the cradle?"
+			}
+		] 
+	}
+	addBook(b) {
+		this.books.unshift(b);
+	}
 	search(term, cursor, limit=0) {
 		return {
-			data: [
-				{
-					title: "The Great Gatsby",
-					author: "F. Scott Fitzgerald",
-					description: "Some people that are rich have a laugh"
-				},
-				{
-					title: "Cat's Cradle",
-					author: "Vonnegut, Kurt",
-					description: "See the cat? See the cradle?"
-				}
-			],
+			data: this.books,
 			cursor: ""
 		}
 	}
