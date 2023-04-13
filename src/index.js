@@ -69,12 +69,23 @@ class BookInfo extends React.Component{
 class BookList extends React.Component{
 	constructor() {
 		super();
-		this.bookService = new BookService();
+		
 		this.addBook = this.addBook.bind(this)
+		const res = new BookService().search('', '', 10);
+		this.state = {
+			books: res.data
+		}
 	}
 
 	addBook(b) {
-		this.bookService.addBook(b);
+		const books = this.state.books;
+		books.unshift(b)
+		this.setState(
+			{
+				books: books
+			}
+
+		)
 	}
 
 	renderBook(b) {	
@@ -83,10 +94,8 @@ class BookList extends React.Component{
 		)
 	}
 	render() {
-		const res = this.bookService.search('', '', 10);
-		const books = res.data;
 		const rows = [];
-		for (const b of books) {
+		for (const b of this.state.books) {
 			rows.push(this.renderBook(b));
 
 		}
